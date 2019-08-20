@@ -117,7 +117,8 @@ function sortCarArray(arr) {
   });
 }
 
-let carModelsSorted = inventory.slice(0);
+//let carModelsSorted = inventory.slice(0);
+let carModelsSorted = [...inventory];
 console.table(sortCarArray(carModelsSorted));
 
 // ==== Challenge 4 ====
