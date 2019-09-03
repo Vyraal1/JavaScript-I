@@ -5,7 +5,12 @@
 let inventory = [
   { id: 1, car_make: "Lincoln", car_model: "Navigator", car_year: 2009 },
   { id: 2, car_make: "Mazda", car_model: "Miata MX-5", car_year: 2001 },
-  { id: 3, car_make: "Land Rover", car_model: "Defender Ice Edition", car_year: 2010 },
+  {
+    id: 3,
+    car_make: "Land Rover",
+    car_model: "Defender Ice Edition",
+    car_year: 2010
+  },
   { id: 4, car_make: "Honda", car_model: "Accord", car_year: 1983 },
   { id: 5, car_make: "Mitsubishi", car_model: "Galant", car_year: 1990 },
   { id: 6, car_make: "Honda", car_model: "Accord", car_year: 1995 },
@@ -18,7 +23,12 @@ let inventory = [
   { id: 13, car_make: "Chevrolet", car_model: "Cavalier", car_year: 1997 },
   { id: 14, car_make: "Dodge", car_model: "Ram Van 1500", car_year: 1999 },
   { id: 15, car_make: "Dodge", car_model: "Intrepid", car_year: 2000 },
-  { id: 16, car_make: "Mitsubishi", car_model: "Montero Sport", car_year: 2001 },
+  {
+    id: 16,
+    car_make: "Mitsubishi",
+    car_model: "Montero Sport",
+    car_year: 2001
+  },
   { id: 17, car_make: "Buick", car_model: "Skylark", car_year: 1987 },
   { id: 18, car_make: "Geo", car_model: "Prizm", car_year: 1995 },
   { id: 19, car_make: "Oldsmobile", car_model: "Bravada", car_year: 1994 },
@@ -75,30 +85,70 @@ let inventory = [
 
 // ==== Challenge 1 ====
 // The dealer can't recall the information for a car with an id of 33 on his lot. Help the dealer find out which car has an id of 33 by logging the car's year, make, and model in the console log provided to you below:
-console.log(`Car 33 is a *car year goes here* *car make goes here* *car model goes here*`);
+function logCarInfo(num) {
+  console.log(
+    `Car ${inventory[num].id} is a ${inventory[num].car_year} ${
+      inventory[num].car_make
+    } ${inventory[num].car_model}.`
+  );
+}
+//gets the 33nd car info
+logCarInfo(32);
 
 // ==== Challenge 2 ====
 // The dealer needs the information on the last car in their inventory.  What is the make and model of the last car in the inventory?  Log the make and model into the console.
-let lastCar = 0;
-console.log();
+logCarInfo(inventory.length - 1);
 
 // ==== Challenge 3 ====
 // The marketing team wants the car models listed alphabetically on the website. Sort all the car model names into alphabetical order and log the results in the console
-let carModels = [];
-let carModelsSorted = [];
-console.log();
+
+//using array sort function as I think using other sort methods seem overkill this early on in the course
+function sortCarArray(arr) {
+  return arr.sort((a, b) => {
+    let nameA = a.car_model.toUpperCase();
+    let nameB = b.car_model.toUpperCase();
+    if (nameA < nameB) {
+      return -1;
+    } else if (nameA > nameB) {
+      return 1;
+    } else {
+      return 0;
+    }
+  });
+}
+
+//let carModelsSorted = inventory.slice(0);
+let carModelsSorted = [...inventory];
+console.table(sortCarArray(carModelsSorted));
 
 // ==== Challenge 4 ====
 // The accounting team needs all the years from every car on the lot. Create a new array from the dealer data containing only the car years and log the result in the console.
 let carYears = [];
-console.log();
+for (car of inventory) {
+  carYears.push(car.car_year);
+}
+
+//let carYears = inventory.map(car => car.car_year);
+console.table(carYears);
 
 // ==== Challenge 5 ====
 // The car lot manager needs to find out how many cars are older than the year 2000. Using the carYears array you just created, find out how many cars were made before the year 2000 by populating the array oldCars and logging it's length.
 let oldCars = [];
-console.log();
+for (carYear of carYears) {
+  if (carYear < 2000) {
+    oldCars.push(carYear);
+  }
+}
+console.log(`There are ${oldCars.length} cars from before 2000.`);
 
 // ==== Challenge 6 ====
 // A buyer is interested in seeing only BMW and Audi cars within the inventory. Return an array that only contains BMW and Audi cars.  Once you have populated the BMWAndAudi array, use JSON.stringify() to show the results of the array in the console.
+
+//assuming it means BMW OR Audi cars, because there isn't any car that is both BMW and Audi
 let BMWAndAudi = [];
-console.log();
+for (car of inventory) {
+  if (car.car_make === "BMW" || car.car_make === "Audi") {
+    BMWAndAudi.push(car);
+  }
+}
+console.log(JSON.stringify(BMWAndAudi));
